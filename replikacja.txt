@@ -1,0 +1,65 @@
+
+
+mysql 8.31
+
+
+Replikacja wg. dokumentacji... :)
+
+https://dev.mysql.com/doc/refman/8.0/en/replication-howto-slavebaseconfig.html
+
+
+1. edytuj plik mysql /etc/mysql/mysql.conf.d/myslqd
+  * wlacz nsłuch na porcie jeśli to świeza instalacja
+  * slaveId --> tu zmeinić
+  * bin login są domyślie zapisywane..
+
+
+mysql> CREATE USER 'repl'@'%.example.com' IDENTIFIED BY 'password';
+mysql> GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%.example.com';
+
+
+//blokada na baza - master..
+mysql> FLUSH TABLES WITH READ LOCK;
+
+
+//wykonaj kopie zapasowa..
+> mysqldump --all-databases --master-data > dbdump.db
+
+
+//na innym polaczeniu
+mysql > SHOW MASTER STATUS;
++------------------+----------+--------------+------------------+
+| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB |
++------------------+----------+--------------+------------------+
+| mysql-bin.000003 | 73       | test         | manual,mysql     |
++------------------+----------+--------------+------------------+
+
+
+//odblokowanie tablel na masterze..
+mysql> UNLOCK TABLES; 
+
+
+
+
+
+//Na replikacji:
+Or from MySQL 8.0.23:
+https://dev.mysql.com/doc/refman/8.0/en/replication-howto-slaveinit.html
+
+mysql> CHANGE REPLICATION SOURCE TO
+    ->     SOURCE_HOST='source_host_name',
+    ->     SOURCE_USER='replication_user_name',
+    ->     SOURCE_PASSWORD='replication_password',
+    ->     SOURCE_LOG_FILE='recorded_log_file_name',
+    ->     SOURCE_LOG_POS=recorded_log_position;
+
+
+
+mysql> STOP SLAVE;
+mysql> SHOW SLAVE STATUS\G
+Or from MySQL 8.0.22:
+mysql> STOP REPLICA;
+mysql> SHOW REPLICA STATUS\G
+
+
+mysql> RESET REPLICA   ///
