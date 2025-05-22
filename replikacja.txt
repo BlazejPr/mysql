@@ -63,3 +63,10 @@ mysql> SHOW REPLICA STATUS\G
 
 
 mysql> RESET REPLICA   ///
+
+
+
+
+//sprawdzenie ostatnich blędów..
+select * from performance_schema.replication_applier_status_by_worker\G
+
