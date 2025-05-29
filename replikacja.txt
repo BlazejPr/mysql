@@ -70,3 +70,13 @@ mysql> RESET REPLICA   ///
 //sprawdzenie ostatnich blędów..
 select * from performance_schema.replication_applier_status_by_worker\G
 
+//losc watków do replikacji
+show variables LIKE 'slave_parallel_workers'
+
+stop slave
+slave_parallel_workers = 1
+start slave
+
+
+
+
