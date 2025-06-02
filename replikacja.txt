@@ -74,7 +74,7 @@ select * from performance_schema.replication_applier_status_by_worker\G
 show variables LIKE 'slave_parallel_workers'
 
 stop slave
-slave_parallel_workers = 1
+set global slave_parallel_workers = 1
 start slave
 
 
