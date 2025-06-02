@@ -79,4 +79,6 @@ start slave
 
 
 
+SET GLOBAL sql_slave_skip_counter = 1;
+
 
