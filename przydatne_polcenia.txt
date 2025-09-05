@@ -38,3 +38,21 @@ mysql> SHOW REPLICAS;
 
 mysql> SHOW WARNINGS\G
 
+
+/// połacznie metody autoryzacji
+[mysqld]
+default_authentication_plugin= mysql_native_password
+
+
+
+You have to change MySQL settings. Edit my.cnf file and put this setting in mysqld section:
+
+[mysqld]
+default_authentication_plugin= mysql_native_password
+
+Then run following command:
+
+FLUSH PRIVILEGES;
+
+
+
