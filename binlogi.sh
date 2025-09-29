@@ -11,3 +11,6 @@ https://github.com/lefred/MyUndelete.git
 
 
 ./MyUndelete.py -b /var/log/mysql/bin-log.000001 -s 120 -e 351
+
+
+PURGE BINARY LOGS BEFORE now();
