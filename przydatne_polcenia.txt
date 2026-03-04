@@ -1,5 +1,10 @@
 
 
+insert into 21547047_fsys.fak_faktury select * from gptest.fak_faktury where data_wystawienia='2026-02-26' AND numer_dokumentu <> '---' ON DUPLICATE KEY UPDATE numer_kolejny_faktury_kl = VALUES(numer_kolejny_faktury_kl);
+
+
+
+
 
 https://dev.mysql.com/doc/refman/8.0/en/create-user.html
 
